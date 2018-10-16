@@ -1,5 +1,8 @@
 #include "stdafx.h"
 
+#include <iostream>
+#include <stdexcept>
+
 #include "SDL.h"
 
 //******************************************************************************
@@ -13,35 +16,44 @@ int main(int argc,char** argv)
    //***************************************************************************
    // Initialize the program.
 
-   int running;
-   SDL_Window *window;
-   SDL_Surface *windowsurface;
-   SDL_Surface *image;
-   SDL_Event event;
+   int tRet;
+   SDL_Window*  tWindow;
+   SDL_Surface* tWindowSurface;
+   SDL_Surface* tImage;
 
-   SDL_Init(SDL_INIT_VIDEO);
+   try
+   {
+      tRet = SDL_Init(SDL_INIT_VIDEO);
+      if (tRet) throw std::runtime_error("SDL_Init");
+      
 
-   window = SDL_CreateWindow("Hello World",
-      SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
-      592, 460, SDL_WINDOW_SHOWN);
-   windowsurface = SDL_GetWindowSurface(window);
+      tWindow = SDL_CreateWindow("Video2",
+         SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
+         592, 460, SDL_WINDOW_SHOWN);
+      if(tWindow == 0) throw std::runtime_error("SDL_CreateWindow");
 
-   image = SDL_LoadBMP("..\\Files\\sails.bmp");
-   SDL_BlitSurface(image, NULL, windowsurface, NULL);
+      tWindowSurface = SDL_GetWindowSurface(tWindow);
+      if (tWindowSurface == 0) throw std::runtime_error("SDL_CreateWindowSurface");
 
-   SDL_UpdateWindowSurface(window);
-   SDL_FreeSurface(image);
+      tImage = SDL_LoadBMP("..\\Files\\sails.bmp");
+      if (tImage == 0) throw std::runtime_error("SDL_LoadBMP");
 
-   running = 1;
-   while (running) {
-      while (SDL_PollEvent(&event) != 0) {
-         if (event.type == SDL_KEYDOWN || event.type == SDL_QUIT) {
-            running = 0;
-            break;
-         }
-      }
+
+      SDL_BlitSurface(tImage, NULL, tWindowSurface, NULL);
+
+      SDL_UpdateWindowSurface(tWindow);
+      SDL_FreeSurface(tImage);
+
+      printf("press enter\n");
+      getchar();
+
    }
-   SDL_DestroyWindow(window);
+   catch (std::exception& e)
+   {
+      printf("main FAIL %s\n",e.what());
+   }
+
+   SDL_DestroyWindow(tWindow);
    SDL_Quit();
 
    //***************************************************************************
@@ -49,7 +61,6 @@ int main(int argc,char** argv)
    //***************************************************************************
    // Initialize the program.
 
-// return 0;
    printf("press enter\n");
    getchar();
    return 0;
