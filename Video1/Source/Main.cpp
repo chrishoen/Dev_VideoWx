@@ -35,7 +35,7 @@ int main(int argc,char** argv)
    running = 1;
    while (running) {
       while (SDL_PollEvent(&event) != 0) {
-         if (event.type == SDL_QUIT) {
+         if (event.type == SDL_KEYDOWN || event.type == SDL_QUIT) {
             running = 0;
             break;
          }
@@ -43,15 +43,14 @@ int main(int argc,char** argv)
    }
    SDL_DestroyWindow(window);
    SDL_Quit();
-   return 0;
-
-
 
    //***************************************************************************
    //***************************************************************************
    //***************************************************************************
    // Initialize the program.
 
+// return 0;
    printf("press enter\n");
    getchar();
+   return 0;
 }
