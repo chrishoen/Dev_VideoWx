@@ -147,6 +147,7 @@ void VideoThread::doVideoFinish()
 
 void VideoThread::doVideoDraw1(int aCode)
 {
+   int tRet = 0;
    Prn::print(Prn::ThreadRun1, "VideoThread::doVideoDraw1 %d",aCode);
 
    try
@@ -160,18 +161,21 @@ void VideoThread::doVideoDraw1(int aCode)
       {
          // Set renderer to blue.
          Prn::print(Prn::ThreadRun1, "blue");
-         SDL_SetRenderDrawColor(mRenderer, 0, 0, 255, 255);
+         tRet = SDL_SetRenderDrawColor(mRenderer, 0, 0, 255, 255);
+         if (tRet) throw "SDL_SetRenderDrawColor";
       }
 
       if (aCode == 1)
       {
          // Set renderer to red.
          Prn::print(Prn::ThreadRun1, "red");
-         SDL_SetRenderDrawColor(mRenderer, 255, 0, 0, 255);
+         tRet = SDL_SetRenderDrawColor(mRenderer, 255, 0, 0, 255);
+         if (tRet) throw "SDL_SetRenderDrawColor";
       }
 
       // Clear the window and make it all blue.
-      SDL_RenderClear(mRenderer);
+      tRet = SDL_RenderClear(mRenderer);
+      if (tRet) throw "SDL_RenderClear";
 
       // Render the changes above.
       SDL_RenderPresent(mRenderer);
@@ -181,6 +185,8 @@ void VideoThread::doVideoDraw1(int aCode)
       Prn::print(Prn::ThreadRun1, "EXCEPTION %s", aString, SDL_GetError());
       mValidFlag = false;
    }
+
+   showError();
 }
 
 //******************************************************************************
