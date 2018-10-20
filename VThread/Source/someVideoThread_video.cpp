@@ -56,11 +56,78 @@ void VideoThread::threadRunFunction()
          showRenderInfo("RenderDriver", &mRenderInfo);
       }
 
+      //***************************************************************************
+      //***************************************************************************
+      //***************************************************************************
+      // Create window.
+
+      Prn::print(Prn::ThreadRun1, "");
+      Prn::print(Prn::ThreadRun1, "CreateWindow***************************************************");
+      unsigned int tWindowFlags = 0;
+      tWindowFlags |= SDL_WINDOW_SHOWN;
+      // tWindowFlags |= SDL_WINDOW_FULLSCREEN;
+      // tWindowFlags |= SDL_WINDOW_OPENGL;
+
+      mWindow = SDL_CreateWindow("VideoThread",
+         //    SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
+         SDL_WINDOWPOS_CENTERED_DISPLAY(1), SDL_WINDOWPOS_CENTERED_DISPLAY(1),
+         mWindowW, mWindowH, tWindowFlags);
+      if (mWindow == 0) throw "SDL_CreateWindow";
+
+      showWindowFlags(mWindow);
+
+      //***************************************************************************
+      //***************************************************************************
+      //***************************************************************************
+      // Create renderer.
+
+      Prn::print(Prn::ThreadRun1, "CreateRenderer*************************************************");
+
+      int tRenderDriverIndex = -1;
+      tRenderDriverIndex = 0;
+      unsigned int tRenderFlags = 0;
+      tRenderFlags |= SDL_RENDERER_ACCELERATED;
+      tRenderFlags |= SDL_RENDERER_PRESENTVSYNC;
+
+      mRenderer = SDL_CreateRenderer(mWindow, tRenderDriverIndex, tRenderFlags);
+      if (mRenderer == 0) throw "SDL_CreateRenderer";
+
+      // Set renderer to the same size as the window.
+      SDL_RenderSetLogicalSize(mRenderer, mWindowW, mWindowH);
+
+      SDL_GetRendererInfo(mRenderer, &mRenderInfo);
+      showRenderInfo("Renderer", &mRenderInfo);
+
+      //***************************************************************************
+      //***************************************************************************
+      //***************************************************************************
+      // Draw the window.
+
+      Prn::print(Prn::ThreadRun1, "DrawWindow*****************************************************");
+
+      // Set renderer to blue.
+      SDL_SetRenderDrawColor(mRenderer, 0, 0, 255, 255);
+
+      // Clear the window and make it all blue.
+      SDL_RenderClear(mRenderer);
+
+      // Set renderer to red.
+      SDL_SetRenderDrawColor(mRenderer, 255, 0, 0, 255);
+
+      // Render the rectangle.
+      SDL_RenderFillRect(mRenderer, &mRectA);
+
+      // Render the changes above.
+      SDL_RenderPresent(mRenderer);
+
+      showWindowFlags(mWindow);
+
       //************************************************************************
       //************************************************************************
       //************************************************************************
       // Wait.
 
+      showDisplayInfo(0);
       BaseClass::mTerminateSem.get();
    }
    catch (const char* aString)
