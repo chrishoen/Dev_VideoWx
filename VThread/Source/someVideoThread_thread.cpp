@@ -77,12 +77,36 @@ void VideoThread::threadInitFunction()
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
+// Thread run function. This is called by the base class immediately 
+// after the thread init function. It performs the thread processing.
+
+void VideoThread::threadRunFunction()
+{
+   Prn::print(Prn::ThreadRun1, "VideoThread::threadRunFunction %s", my_string_from_bool(mValidFlag));
+   if (!mValidFlag) return;
+
+   // Draw some video.
+   doVideoDraw1();
+
+   // Wait.
+   BaseClass::mTerminateSem.get();
+}
+
+//******************************************************************************
+//******************************************************************************
+//******************************************************************************
 // Thread exit function. This is called by the base class immediately
 // before the thread is terminated. It shuts down the child thread.
 
 void VideoThread::threadExitFunction()
 {
    Prn::print(Prn::ThreadInit1, "VideoThread::threadExitFunction");
+
+   if (mRenderer) SDL_DestroyRenderer(mRenderer);
+   if (mWindow)   SDL_DestroyWindow(mWindow);
+   mRenderer = 0;
+   mWindow = 0;
+
    SDL_Quit();
 }
 

@@ -93,6 +93,15 @@ public:
    //***************************************************************************
    // Methods.
 
+   // Draw some video.
+   void doVideoDraw1();
+   void doVideoDraw2();
+
+   //***************************************************************************
+   //***************************************************************************
+   //***************************************************************************
+   // Methods.
+
    void showWindowFlags(SDL_Window* aWindow);
    void showRenderInfo(const char* aLabel, SDL_RendererInfo* aInfo);
    void showDisplayInfo(int tDisplayIndex);
