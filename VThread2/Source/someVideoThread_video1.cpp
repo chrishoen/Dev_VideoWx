@@ -145,10 +145,9 @@ void VideoThread::doVideoFinish()
 //******************************************************************************
 // Draw some video.
 
-void VideoThread::doVideoDraw1()
+void VideoThread::doVideoDraw1(int aCode)
 {
-   Prn::print(Prn::ThreadRun1, "VideoThread::doVideoDraw1");
-   return;
+   Prn::print(Prn::ThreadRun1, "VideoThread::doVideoDraw1 %d",aCode);
 
    try
    {

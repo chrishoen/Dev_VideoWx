@@ -23,6 +23,12 @@ VideoThread::VideoThread()
    // Set base class thread priority.
    BaseClass::setThreadPriorityHigh();
 
+   // Set timer period.
+   BaseClass::mTimerPeriod = 1000;
+
+   // Initialize QCalls.
+   mDraw1QCall.bind(this, &VideoThread::executeDraw1);
+
    // Set member variables.
    mValidFlag = false;
 
@@ -84,24 +90,6 @@ void VideoThread::threadInitFunction()
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
-// Thread run function. This is called by the base class immediately 
-// after the thread init function. It performs the thread processing.
-
-void VideoThread::threadRunFunction()
-{
-   Prn::print(Prn::ThreadRun1, "VideoThread::threadRunFunction %s", my_string_from_bool(mValidFlag));
-   if (!mValidFlag) return;
-
-   // Draw some video.
-   doVideoDraw1();
-
-   // Wait.
-   BaseClass::mTerminateSem.get();
-}
-
-//******************************************************************************
-//******************************************************************************
-//******************************************************************************
 // Thread exit function. This is called by the base class immediately
 // before the thread is terminated. It shuts down the child thread.
 
@@ -110,6 +98,25 @@ void VideoThread::threadExitFunction()
    Prn::print(Prn::ThreadInit1, "VideoThread::threadExitFunction");
 
    doVideoFinish();
+}
+
+//******************************************************************************
+//******************************************************************************
+//******************************************************************************
+// Execute periodically. This is called by the base class timer.
+
+void VideoThread::executeOnTimer(int aTimerCount)
+{
+}
+
+//******************************************************************************
+//******************************************************************************
+//******************************************************************************
+// Execute something.
+
+void VideoThread::executeDraw1(int  aCode)
+{
+   doVideoDraw1(aCode);
 }
 
 //******************************************************************************
