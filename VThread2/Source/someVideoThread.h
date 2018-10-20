@@ -8,7 +8,7 @@ Some video thread class.
 //******************************************************************************
 //******************************************************************************
 
-#include "risThreadsQCallThread.h"
+#include "risThreadsThreads.h"
 #include "SDL.h"
 
 //******************************************************************************
@@ -27,11 +27,11 @@ namespace Some
 // It inherits from BaseQCallThread to obtain a call queue based thread
 // functionality.
 
-class VideoThread : public Ris::Threads::BaseQCallThread
+class VideoThread : public Ris::Threads::BaseThread
 {
 public:
 
-   typedef Ris::Threads::BaseQCallThread BaseClass;
+   typedef Ris::Threads::BaseThread BaseClass;
 
    //***************************************************************************
    //***************************************************************************
@@ -55,6 +55,8 @@ public:
    int mRectW;
    int mRectH;
 
+   unsigned int mDrawEventType;
+
    //***************************************************************************
    //***************************************************************************
    //***************************************************************************
@@ -74,36 +76,33 @@ public:
    // after the thread starts running. It starts the child thread.
    void threadInitFunction() override;
 
+   // Thread run function. This is called by the base class immediately 
+   // after the thread init function. It performs the thread processing.
+   void threadRunFunction() override;
+
    // Thread exit function. This is called by the base class immediately
    // before the thread is terminated. It shuts down the child thread.
    void threadExitFunction() override;
-
-   // Execute periodically. This is called by the base class timer. It sends
-   // a periodic echo request message.
-   void executeOnTimer(int aTimerCount) override;
-
-   //***************************************************************************
-   //***************************************************************************
-   //***************************************************************************
-   // Methods. 
-
-   // Example test qcall.
-
-   // The qcall. This is a call that is queued to this thread.
-   Ris::Threads::QCall1<int> mDraw1QCall;
-
-   // Execute something. This is bound to the qcall.
-   void executeDraw1(int aCode);
 
    //***************************************************************************
    //***************************************************************************
    //***************************************************************************
    // Methods.
 
-   // Draw some video.
+   // Start and finish the video subsystem.
    void doVideoStart();
    void doVideoFinish();
-   void doVideoDraw1(int aCode);
+
+   //***************************************************************************
+   //***************************************************************************
+   //***************************************************************************
+   // Methods. 
+
+   // Post an event to draw something.
+   void postDraw1(int aCode);
+
+   // Draw something. This is requested by the posted event.
+   void doVideoDraw1(SDL_Event* aEvent);
 
    //***************************************************************************
    //***************************************************************************

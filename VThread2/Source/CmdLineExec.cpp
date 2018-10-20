@@ -52,7 +52,7 @@ void CmdLineExec::executeDraw(Ris::CmdLineCmd* aCmd)
 {
    aCmd->setArgDefault(1, 0);
 
-   Some::gVideoThread->mDraw1QCall(aCmd->argInt(1));
+   Some::gVideoThread->postDraw1(aCmd->argInt(1));
 }
 
 //******************************************************************************

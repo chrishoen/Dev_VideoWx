@@ -145,9 +145,10 @@ void VideoThread::doVideoFinish()
 //******************************************************************************
 // Draw some video.
 
-void VideoThread::doVideoDraw1(int aCode)
+void VideoThread::doVideoDraw1(SDL_Event* aEvent)
 {
    int tRet = 0;
+   int aCode = aEvent->user.code;
    Prn::print(Prn::ThreadRun1, "VideoThread::doVideoDraw1 %d",aCode);
 
    try
@@ -157,25 +158,23 @@ void VideoThread::doVideoDraw1(int aCode)
       //***************************************************************************
       // Draw the window.
 
-      if (aCode == 0)
-      {
-         // Set renderer to blue.
-         Prn::print(Prn::ThreadRun1, "blue");
-         tRet = SDL_SetRenderDrawColor(mRenderer, 0, 0, 255, 255);
-         if (tRet) throw "SDL_SetRenderDrawColor";
-      }
-
-      if (aCode == 1)
-      {
-         // Set renderer to red.
-         Prn::print(Prn::ThreadRun1, "red");
-         tRet = SDL_SetRenderDrawColor(mRenderer, 255, 0, 0, 255);
-         if (tRet) throw "SDL_SetRenderDrawColor";
-      }
+      // Set renderer to blue.
+      tRet = SDL_SetRenderDrawColor(mRenderer, 0, 0, 255, 255);
+      if (tRet) throw "SDL_SetRenderDrawColor";
 
       // Clear the window and make it all blue.
       tRet = SDL_RenderClear(mRenderer);
       if (tRet) throw "SDL_RenderClear";
+
+      // Set renderer to red.
+      tRet = SDL_SetRenderDrawColor(mRenderer, 255, 0, 0, 255);
+      if (tRet) throw "SDL_SetRenderDrawColor";
+
+      // Render the rectangle.
+      SDL_Rect tRect = mRectA;
+      if (aCode == 0) tRect = mRectA;
+      if (aCode == 1) tRect = mRectB;
+      SDL_RenderFillRect(mRenderer, &tRect);
 
       // Render the changes above.
       SDL_RenderPresent(mRenderer);
@@ -185,8 +184,6 @@ void VideoThread::doVideoDraw1(int aCode)
       Prn::print(Prn::ThreadRun1, "EXCEPTION %s", aString, SDL_GetError());
       mValidFlag = false;
    }
-
-   showError();
 }
 
 //******************************************************************************

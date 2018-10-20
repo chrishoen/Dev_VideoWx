@@ -23,8 +23,8 @@ void main_initialize(int argc,char** argv)
    Prn::setFilter(Prn::ThreadInit1,     true);
    Prn::setFilter(Prn::ThreadRun1,      true);
    Prn::setFilter(Prn::ThreadRun2,      true);
-   Prn::setFilter(Prn::ThreadRun3,      true);
-   Prn::setFilter(Prn::ThreadRun4,      true);
+   Prn::setFilter(Prn::ThreadRun3,      false);
+   Prn::setFilter(Prn::ThreadRun4,      false);
 
    Prn::setFilter(Prn::View01,          true);
    Prn::setFilter(Prn::View02,          true);
