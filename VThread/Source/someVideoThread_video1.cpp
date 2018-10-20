@@ -118,7 +118,6 @@ void VideoThread::doVideoDraw1()
 
       // Render the changes above.
       SDL_RenderPresent(mRenderer);
-      SDL_ShowWindow(mWindow);
 
       // Show.
       showWindowFlags(mWindow);

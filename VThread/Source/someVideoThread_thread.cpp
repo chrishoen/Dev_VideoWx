@@ -37,6 +37,8 @@ VideoThread::VideoThread()
    mWindowH = 1080;
    mWindowW = 640;
    mWindowH = 480;
+   mRectH = 200;
+   mRectW = 200;
 
    mRectA.x = mWindowW / 2 - mRectW / 2;
    mRectA.y = mWindowH / 2 - mRectH / 2;
