@@ -46,10 +46,16 @@ VideoThread::VideoThread()
    mRectH = 200;
    mRectW = 200;
 
-   mRectA.x = mWindowW / 2 - mRectW / 2;
-   mRectA.y = mWindowH / 2 - mRectH / 2;
+   mRectA.x = mWindowW/4 - mRectW/2;
+   mRectA.y = mWindowH/2 - mRectH/2;
    mRectA.w = mRectW;
    mRectA.h = mRectH;
+
+   mRectB.x = (3*mWindowW)/4 - mRectW/2;
+   mRectB.y = mWindowH/2 - mRectH/2;
+   mRectB.w = mRectW;
+   mRectB.h = mRectH;
+
 }
 
 //******************************************************************************

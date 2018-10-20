@@ -30,7 +30,7 @@ void CmdLineExec::reset()
 
 void CmdLineExec::execute(Ris::CmdLineCmd* aCmd)
 {
-   if (aCmd->isCmd("DRAW"))      executeDraw(aCmd);
+   if (aCmd->isCmd("D"))        executeDraw(aCmd);
 
    if (aCmd->isCmd("GO1"))       executeGo1(aCmd);
    if (aCmd->isCmd("GO2"))       executeGo2(aCmd);
@@ -50,7 +50,7 @@ void CmdLineExec::execute(Ris::CmdLineCmd* aCmd)
 
 void CmdLineExec::executeDraw(Ris::CmdLineCmd* aCmd)
 {
-   aCmd->setArgDefault(1, 1);
+   aCmd->setArgDefault(1, 0);
 
    Some::gVideoThread->mDraw1QCall(aCmd->argInt(1));
 }

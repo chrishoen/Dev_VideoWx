@@ -48,6 +48,7 @@ public:
    SDL_Texture*     mShape;
    SDL_RendererInfo mRenderInfo;
    SDL_Rect         mRectA;
+   SDL_Rect         mRectB;
 
    int mWindowW;
    int mWindowH;

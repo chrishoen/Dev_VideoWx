@@ -168,7 +168,11 @@ void VideoThread::doVideoDraw1(int aCode)
       SDL_SetRenderDrawColor(mRenderer, 255, 0, 0, 255);
 
       // Render the rectangle.
-      SDL_RenderFillRect(mRenderer, &mRectA);
+      SDL_Rect tRect;
+      if (aCode == 0) tRect = mRectA;
+      if (aCode == 1) tRect = mRectB;
+
+      SDL_RenderFillRect(mRenderer, &tRect);
 
       // Render the changes above.
       SDL_RenderPresent(mRenderer);
@@ -193,4 +197,4 @@ void VideoThread::doVideoDraw1(int aCode)
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
-}//namespace
+}//name;space
