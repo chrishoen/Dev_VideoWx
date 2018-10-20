@@ -6,6 +6,8 @@
 //******************************************************************************
 #include "stdafx.h"
 
+#include "SDL.h"
+
 #define  _SOMEVIDEOTHREAD_CPP_
 #include "someVideoThread.h"
 
@@ -20,6 +22,26 @@ VideoThread::VideoThread()
 {
    // Set base class thread priority.
    BaseClass::setThreadPriorityHigh();
+
+   // Set member variables.
+   mValidFlag = false;
+
+   mWindow = 0;
+   mSurface = 0;
+   mImage;
+   mRenderer = 0;
+   mBackground = 0;
+   mShape = 0;
+
+   mWindowW = 1920;
+   mWindowH = 1080;
+   mWindowW = 640;
+   mWindowH = 480;
+
+   mRectA.x = mWindowW / 2 - mRectW / 2;
+   mRectA.y = mWindowH / 2 - mRectH / 2;
+   mRectA.w = mRectW;
+   mRectA.h = mRectH;
 }
 
 //******************************************************************************
@@ -48,17 +70,8 @@ void VideoThread::show()
 void VideoThread::threadInitFunction()
 {
    Prn::print(Prn::ThreadInit1, "VideoThread::threadInitFunction");
-}
-
-//******************************************************************************
-//******************************************************************************
-//******************************************************************************
-// Thread run function. This is called by the base class immediately 
-// after the thread init function. It performs the thread processing.
-
-void VideoThread::threadRunFunction()
-{
-   BaseClass::mTerminateSem.get();
+   int tRet = SDL_Init(SDL_INIT_VIDEO);
+   mValidFlag = tRet == 0;
 }
 
 //******************************************************************************
@@ -69,7 +82,8 @@ void VideoThread::threadRunFunction()
 
 void VideoThread::threadExitFunction()
 {
-   Prn::print(Prn::ThreadInit1, "VideoThread::threadExitFunction BEGIN");
+   Prn::print(Prn::ThreadInit1, "VideoThread::threadExitFunction");
+   SDL_Quit();
 }
 
 //******************************************************************************

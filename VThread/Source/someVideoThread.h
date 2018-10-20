@@ -9,6 +9,7 @@ Some serial thread class.
 //******************************************************************************
 
 #include "risThreadsThreads.h"
+#include "SDL.h"
 
 //******************************************************************************
 //******************************************************************************
@@ -37,17 +38,33 @@ class  VideoThread : public Ris::Threads::BaseThreadWithTermSem
 {
 public:
 
+   typedef Ris::Threads::BaseThreadWithTermSem BaseClass;
+
    //***************************************************************************
    //***************************************************************************
    //***************************************************************************
    // Members.
 
+   bool mValidFlag;
+
+   SDL_Window*      mWindow;
+   SDL_Surface*     mSurface;
+   SDL_Surface*     mImage;
+   SDL_Renderer*    mRenderer;
+   SDL_Texture*     mBackground;
+   SDL_Texture*     mShape;
+   SDL_RendererInfo mRenderInfo;
+   SDL_Rect         mRectA;
+
+   int mWindowW;
+   int mWindowH;
+   int mRectW;
+   int mRectH;
+
    //***************************************************************************
    //***************************************************************************
    //***************************************************************************
    // Methods.
-
-   typedef Ris::Threads::BaseThreadWithTermSem BaseClass;
 
    // Constructor.
    VideoThread();
@@ -67,9 +84,19 @@ public:
    // after the thread init function. It performs the thread processing.
    void threadRunFunction() override;
 
-  // Thread exit function. This is called by the base class immediately
+   // Thread exit function. This is called by the base class immediately
    // before the thread is terminated. It shuts down the child thread.
    void threadExitFunction() override;
+
+   //***************************************************************************
+   //***************************************************************************
+   //***************************************************************************
+   // Methods.
+
+   void showWindowFlags(SDL_Window* aWindow);
+   void showRenderInfo(const char* aLabel, SDL_RendererInfo* aInfo);
+   void showDisplayInfo(int tDisplayIndex);
+
 };
 
 //******************************************************************************

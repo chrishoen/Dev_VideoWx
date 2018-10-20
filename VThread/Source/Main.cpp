@@ -5,6 +5,9 @@
 #include "risCmdLineConsole.h"
 #include "CmdLineExec.h"
 
+#define SDL_MAIN_HANDLED
+#include "SDL.h"
+
 #include "someVideoThread.h"
 
 //******************************************************************************
@@ -51,5 +54,9 @@ int main(int argc,char** argv)
    // End program.
 
    main_finalize();
+
+   printf("press enter\n");
+   getchar();
+
    return 0;
 }

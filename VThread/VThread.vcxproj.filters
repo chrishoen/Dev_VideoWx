@@ -19,7 +19,10 @@
     <ClCompile Include="Source\stdafx.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="Source\someVideoThread.cpp">
+    <ClCompile Include="Source\someVideoThread_thread.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\someVideoThread_video.cpp">
       <Filter>Source</Filter>
     </ClCompile>
   </ItemGroup>
