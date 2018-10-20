@@ -156,36 +156,25 @@ void VideoThread::doVideoDraw1(int aCode)
       //***************************************************************************
       // Draw the window.
 
-      Prn::print(Prn::ThreadRun1, "DrawWindow*****************************************************");
+      if (aCode == 0)
+      {
+         // Set renderer to blue.
+         Prn::print(Prn::ThreadRun1, "blue");
+         SDL_SetRenderDrawColor(mRenderer, 0, 0, 255, 255);
+      }
 
-      // Set renderer to blue.
-      SDL_SetRenderDrawColor(mRenderer, 0, 0, 255, 255);
+      if (aCode == 1)
+      {
+         // Set renderer to red.
+         Prn::print(Prn::ThreadRun1, "red");
+         SDL_SetRenderDrawColor(mRenderer, 255, 0, 0, 255);
+      }
 
       // Clear the window and make it all blue.
       SDL_RenderClear(mRenderer);
 
-      // Set renderer to red.
-      SDL_SetRenderDrawColor(mRenderer, 255, 0, 0, 255);
-
-      // Render the rectangle.
-      SDL_Rect tRect;
-      if (aCode == 0) tRect = mRectA;
-      if (aCode == 1) tRect = mRectB;
-
-      SDL_RenderFillRect(mRenderer, &tRect);
-
       // Render the changes above.
       SDL_RenderPresent(mRenderer);
-
-      // Show.
-      showWindowFlags(mWindow);
-
-      //************************************************************************
-      //************************************************************************
-      //************************************************************************
-      // Wait.
-
-      showDisplayInfo(0);
    }
    catch (const char* aString)
    {
