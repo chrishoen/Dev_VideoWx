@@ -28,9 +28,6 @@
     <ClCompile Include="Source\someVideoThread_video1.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="Source\someVideoThread_video2.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\CmdLineExec.h">

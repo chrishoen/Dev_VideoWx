@@ -94,8 +94,9 @@ public:
    // Methods.
 
    // Draw some video.
+   void doVideoStart();
+   void doVideoFinish();
    void doVideoDraw1();
-   void doVideoDraw2();
 
    //***************************************************************************
    //***************************************************************************

@@ -19,9 +19,9 @@ namespace Some
 //******************************************************************************
 // Draw some video.
 
-void VideoThread::doVideoDraw1()
+void VideoThread::doVideoStart()
 {
-   Prn::print(Prn::ThreadRun1, "VideoThread::doVideoDraw1");
+   Prn::print(Prn::ThreadRun1, "VideoThread::doVideoStart");
 
    try
    {
@@ -97,6 +97,61 @@ void VideoThread::doVideoDraw1()
       SDL_GetRendererInfo(mRenderer, &mRenderInfo);
       showRenderInfo("Renderer", &mRenderInfo);
 
+      //***************************************************************************
+      //***************************************************************************
+      //***************************************************************************
+      // Draw the window.
+
+      Prn::print(Prn::ThreadRun1, "DrawWindow*****************************************************");
+
+      // Set renderer to blue.
+      SDL_SetRenderDrawColor(mRenderer, 0, 0, 255, 255);
+
+      // Clear the window and make it all blue.
+      SDL_RenderClear(mRenderer);
+
+      // Render the changes above.
+      SDL_RenderPresent(mRenderer);
+
+      // Show.
+      showWindowFlags(mWindow);
+   }
+   catch (const char* aString)
+   {
+      Prn::print(Prn::ThreadRun1, "EXCEPTION %s", aString, SDL_GetError());
+      mValidFlag = false;
+   }
+}
+
+//******************************************************************************
+//******************************************************************************
+//******************************************************************************
+// Draw some video.
+
+void VideoThread::doVideoFinish()
+{
+   Prn::print(Prn::ThreadRun1, "VideoThread::doVideoFinish");
+
+   if (mRenderer) SDL_DestroyRenderer(mRenderer);
+   if (mWindow)   SDL_DestroyWindow(mWindow);
+   mRenderer = 0;
+   mWindow = 0;
+
+   SDL_Quit();
+}
+
+//******************************************************************************
+//******************************************************************************
+//******************************************************************************
+// Draw some video.
+
+void VideoThread::doVideoDraw1()
+{
+   Prn::print(Prn::ThreadRun1, "VideoThread::doVideoDraw1");
+   return;
+
+   try
+   {
       //***************************************************************************
       //***************************************************************************
       //***************************************************************************

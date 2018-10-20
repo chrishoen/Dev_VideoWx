@@ -72,8 +72,13 @@ void VideoThread::show()
 void VideoThread::threadInitFunction()
 {
    Prn::print(Prn::ThreadInit1, "VideoThread::threadInitFunction");
+
+   // Initialize the video subsystem.
    int tRet = SDL_Init(SDL_INIT_VIDEO);
    mValidFlag = tRet == 0;
+
+   // Create the window and renderer.
+   doVideoStart();
 }
 
 //******************************************************************************
@@ -104,12 +109,7 @@ void VideoThread::threadExitFunction()
 {
    Prn::print(Prn::ThreadInit1, "VideoThread::threadExitFunction");
 
-   if (mRenderer) SDL_DestroyRenderer(mRenderer);
-   if (mWindow)   SDL_DestroyWindow(mWindow);
-   mRenderer = 0;
-   mWindow = 0;
-
-   SDL_Quit();
+   doVideoFinish();
 }
 
 //******************************************************************************
