@@ -9,9 +9,9 @@ Target painter.
 //******************************************************************************
 //******************************************************************************
 
-#include "cmnImageBitMap.h"
-#include "svTargetParms.h"
-#include "svObjectPointArray.h"
+#include <opencv2/core/core.hpp>
+
+#include "someVideoParms.h"
 
 namespace Some
 {
@@ -45,7 +45,11 @@ public:
    // Members.
 
    // Parameters.
-   TargetParms* mP;
+   VideoParms* mP;
+
+   // Color.
+   cv::Scalar mForeColor;
+   cv::Scalar mBackColor;
 
    //***************************************************************************
    //***************************************************************************
@@ -54,8 +58,8 @@ public:
 
    // Constructor.
    ImagePainter();
-   ImagePainter(TargetParms* aParms);
-   void initialize(TargetParms* aParms);
+   ImagePainter(VideoParms* aParms);
+   void initialize(VideoParms* aParms);
    void reset();
    
    //***************************************************************************
@@ -67,17 +71,8 @@ public:
    // specifies the pattern. This is used to display checkerboards and gray
    // cards.
    void doPaintTargetWithReference(
-      int                aReferenceCode,    // Input   
-      Cmn::ImageBitMap*& aTargetBitMap);    // Output
-
-   // Paint the target image with a grid of object points. The input is a
-   // list of target object points. The output is a target window image
-   // matrix. This initializes the output window image matrix and then writes
-   // pixel values to it. This paints all of the target object points as
-   // pixels in the window image target region.
-   void doPaintTargetWithGrid(
-      Some::ObjectPointArray& aTargetObjectPoints,    // Input
-      Cmn::ImageBitMap*&    aTargetBitMap);         // Output
+      int      aReferenceCode,    // Input   
+      cv::Mat& aTarget);          // Output
 
    //***************************************************************************
    //***************************************************************************
@@ -87,38 +82,31 @@ public:
 
    // Initialize the window image matrix to zeroes.
    void initializeTargetBitMap(
-      Cmn::ImageBitMap*& aTargetBitMap);
-
+      cv::Mat& aTarget);
 
    // Draw a checkerboard in the window image matrix target region.
    void drawCheckerBoard(
-      Cmn::ImageBitMap*& aTargetBitMap,
-      int       aWidthX,
-      int       aWidthY);
+      cv::Mat& aTarget,
+      int      aWidthX,
+      int      aWidthY);
 
    // Draw reticle in the window image matrix target region
    void drawReticle(
-      Cmn::ImageBitMap*& aTargetBitMap,
-      int       aWidthX,
-      int       aWidthY);
+      cv::Mat& aTarget,
+      int      aWidthX,
+      int      aWidthY);
 
    // Draw all zeroes in the window image matrix.
    void drawAllZeroes(
-      Cmn::ImageBitMap*& aTargetBitMap);
+      cv::Mat& aTarget);
 
    // Draw all ones in the window image matrix.
    void drawAllOnes(
-      Cmn::ImageBitMap*& aTargetBitMap);
+      cv::Mat& aTarget);
 
    // Draw a border around the window image target region.
    void drawBorder(
-      Cmn::ImageBitMap*& aTargetBitMap);
-
-   // Draw each point in a list of object points in the window image
-   // matrix target region.
-   void drawObjectPoints(
-      Cmn::ImageBitMap*& aTargetBitMap,
-      Some::ObjectPointArray& aObjectPoints);
+      cv::Mat& aTarget);
 };
 
 //******************************************************************************

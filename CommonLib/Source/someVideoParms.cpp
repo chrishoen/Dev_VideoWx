@@ -40,6 +40,19 @@ void VideoParms::reset()
    mImageFilename[0]=0;
    mImageW = 0;
    mImageH = 0;
+
+   mTargetWidth = 0;
+   mTargetHeight = 0;
+
+   mTargetColor[0] = 0;
+   mTargetColor[1] = 0;
+   mTargetColor[2] = 0;
+
+   mWidthX = 0;
+   mWidthY = 0;
+   mTargetBorder = false;
+
+
 }
 
 //******************************************************************************
@@ -53,11 +66,26 @@ void VideoParms::show()
    printf("VideoParms************************************************ %s\n", mTargetSection);
 
    printf("\n");
-   printf("WindowWH             %12d %12d\n", mWindowW,mWindowH);
-   printf("TimerThreadPeriod    %12d\n", mTimerThreadPeriod);
+   printf("WindowWH              %10d %10d\n", mWindowW,mWindowH);
+   printf("TimerThreadPeriod     %10d\n",      mTimerThreadPeriod);
    printf("\n");
-   printf("ImageFilename        %12s\n", mImageFilename);
-   printf("ImageWH              %12d %12d\n", mImageW, mImageH);
+   printf("ImageFilename         %10s\n",      mImageFilename);
+   printf("ImageWH               %10d %10d\n", mImageW, mImageH);
+
+   printf("TargetSize            %10d %4d\n",  mTargetHeight, mTargetWidth);
+   printf("\n");
+
+   printf("\n");
+   printf("TargetColor           %10d %4d %4d\n",
+      mTargetColor[0],
+      mTargetColor[1],
+      mTargetColor[2]);
+
+   printf("\n");
+   printf("WidthX                %10d\n", mWidthX);
+   printf("WidthY                %10d\n", mWidthY);
+   printf("TargetBorder          %10s\n", my_string_from_bool(mTargetBorder));
+   printf("\n");
 }
 
 //******************************************************************************
@@ -86,6 +114,22 @@ void VideoParms::execute(Ris::CmdLineCmd* aCmd)
       mImageH = aCmd->argInt(2);
    }
 
+   if (aCmd->isCmd("TargetSize"))
+   {
+      mTargetHeight = aCmd->argInt(1);
+      mTargetWidth = aCmd->argInt(2);
+   }
+
+   if (aCmd->isCmd("TargetColor"))
+   {
+      mTargetColor[0] = aCmd->argInt(1);
+      mTargetColor[1] = aCmd->argInt(2);
+      mTargetColor[2] = aCmd->argInt(3);
+   }
+
+   if (aCmd->isCmd("WidthX"))        mWidthX = aCmd->argInt(1);
+   if (aCmd->isCmd("WidthY"))        mWidthY = aCmd->argInt(1);
+   if (aCmd->isCmd("TargetBorder"))  mTargetBorder = aCmd->argBool(1);
 }
 
 //******************************************************************************

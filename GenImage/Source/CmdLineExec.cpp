@@ -3,6 +3,7 @@
 
 #include "risAlphaDir.h"
 #include "someVideoParms.h"
+#include "someImagePainter.h"
 
 #include "CmdLineExec.h"
 
@@ -43,10 +44,17 @@ void CmdLineExec::execute(Ris::CmdLineCmd* aCmd)
 
 void CmdLineExec::executeGo1(Ris::CmdLineCmd* aCmd)
 {
+   aCmd->setArgDefault(1, 1);
+
+   Some::gVideoParms.reset();
+   Some::gVideoParms.readSection("default");
+
+   Some::ImagePainter tPainter(&Some::gVideoParms);
+   cv::Mat tImage;
+   tPainter.doPaintTargetWithReference(aCmd->argInt(1),tImage);
+
    char tBuffer[100];
-   Prn::print(0,"ImageFilename %s",Ris::getAlphaFilePath_Image(tBuffer,gVideoParms.mImageFilename));
-
-
+   cv::imwrite(Ris::getAlphaFilePath_Image(tBuffer, gVideoParms.mImageFilename),tImage);
 }
 
 //******************************************************************************
@@ -54,6 +62,16 @@ void CmdLineExec::executeGo1(Ris::CmdLineCmd* aCmd)
 //******************************************************************************
 
 void CmdLineExec::executeGo2(Ris::CmdLineCmd* aCmd)
+{
+   char tBuffer[100];
+   Prn::print(0,"ImageFilename %s",Ris::getAlphaFilePath_Image(tBuffer,gVideoParms.mImageFilename));
+}
+
+//******************************************************************************
+//******************************************************************************
+//******************************************************************************
+
+void CmdLineExec::executeGo3(Ris::CmdLineCmd* aCmd)
 {
    int blockSize = 75;
    int imageSize = blockSize * 8;
@@ -71,15 +89,6 @@ void CmdLineExec::executeGo2(Ris::CmdLineCmd* aCmd)
 
    char tBuffer[200];
    cv::imwrite(Ris::getAlphaFilePath_Image(tBuffer, gVideoParms.mImageFilename), chessBoard );
-
-}
-
-//******************************************************************************
-//******************************************************************************
-//******************************************************************************
-
-void CmdLineExec::executeGo3(Ris::CmdLineCmd* aCmd)
-{
 }
 
 //******************************************************************************
