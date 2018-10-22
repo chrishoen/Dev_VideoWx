@@ -9,6 +9,10 @@ SectionBegin Default
 
    // Timer thread.
    TimerThreadPeriod      100
+   
+   // Image.
+   ImageFilename          Image1.bmp
+   ImageWH                1920   1080
 
 SectionEnd
 

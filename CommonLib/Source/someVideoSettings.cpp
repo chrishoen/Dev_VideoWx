@@ -37,6 +37,9 @@ void VideoSettings::reset()
    mWindowW = 0;
    mWindowH = 0;
    mTimerThreadPeriod = 0;
+   mImageFilename[0]=0;
+   mImageW = 0;
+   mImageH = 0;
 }
 
 //******************************************************************************
@@ -52,7 +55,9 @@ void VideoSettings::show()
    printf("\n");
    printf("WindowWH             %12d %12d\n", mWindowW,mWindowH);
    printf("TimerThreadPeriod    %12d\n", mTimerThreadPeriod);
-
+   printf("\n");
+   printf("ImageFilename        %12s\n", mImageFilename);
+   printf("ImageWH              %12d %12d\n", mImageW, mImageH);
 }
 
 //******************************************************************************
@@ -73,6 +78,14 @@ void VideoSettings::execute(Ris::CmdLineCmd* aCmd)
       mWindowW = aCmd->argInt(1);
       mWindowH = aCmd->argInt(2);
    }
+
+   if (aCmd->isCmd("ImageFilename"))   aCmd->copyArgString(1, mImageFilename,cMaxStringSize);
+   if (aCmd->isCmd("ImageWH"))
+   {
+      mImageW = aCmd->argInt(1);
+      mImageH = aCmd->argInt(2);
+   }
+
 }
 
 //******************************************************************************
