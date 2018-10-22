@@ -138,7 +138,11 @@ void VideoThread::threadExitFunction()
 {
    Prn::print(Prn::ThreadInit1, "VideoThread::threadExitFunction");
 
+   // Finish the SDL window.
    doVideoFinish();
+
+   // Finalize the video subsystem.
+   SDL_Quit();
 }
 
 //******************************************************************************

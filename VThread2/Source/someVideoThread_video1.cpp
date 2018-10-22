@@ -136,8 +136,6 @@ void VideoThread::doVideoFinish()
    if (mWindow)   SDL_DestroyWindow(mWindow);
    mRenderer = 0;
    mWindow = 0;
-
-   SDL_Quit();
 }
 
 //******************************************************************************
