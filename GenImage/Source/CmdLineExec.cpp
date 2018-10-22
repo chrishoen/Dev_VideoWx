@@ -2,7 +2,7 @@
 #include "stdafx.h"
 
 #include "risAlphaDir.h"
-#include "someVideoSettings.h"
+#include "someVideoParms.h"
 
 #include "CmdLineExec.h"
 
@@ -44,7 +44,7 @@ void CmdLineExec::execute(Ris::CmdLineCmd* aCmd)
 void CmdLineExec::executeGo1(Ris::CmdLineCmd* aCmd)
 {
    char tBuffer[100];
-   Prn::print(0,"ImageFilename %s",Ris::getAlphaFilePath_Image(tBuffer,gVideoSettings.mImageFilename));
+   Prn::print(0,"ImageFilename %s",Ris::getAlphaFilePath_Image(tBuffer,gVideoParms.mImageFilename));
 
 
 }
@@ -70,7 +70,7 @@ void CmdLineExec::executeGo2(Ris::CmdLineCmd* aCmd)
    }
 
    char tBuffer[200];
-   cv::imwrite(Ris::getAlphaFilePath_Image(tBuffer, gVideoSettings.mImageFilename), chessBoard );
+   cv::imwrite(Ris::getAlphaFilePath_Image(tBuffer, gVideoParms.mImageFilename), chessBoard );
 
 }
 
@@ -104,8 +104,8 @@ void CmdLineExec::executeGo5(Ris::CmdLineCmd* aCmd)
 
 void CmdLineExec::executeParms(Ris::CmdLineCmd* aCmd)
 {
-   Some::gVideoSettings.reset();
-   Some::gVideoSettings.readSection("default");
-   Some::gVideoSettings.show();
+   Some::gVideoParms.reset();
+   Some::gVideoParms.readSection("default");
+   Some::gVideoParms.show();
 }
 

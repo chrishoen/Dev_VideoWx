@@ -10,7 +10,7 @@
     <ClCompile Include="Source\stdafx.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="Source\someVideoSettings.cpp">
+    <ClCompile Include="Source\someVideoParms.cpp">
       <Filter>Source</Filter>
     </ClCompile>
   </ItemGroup>
@@ -18,7 +18,7 @@
     <ClInclude Include="Source\stdafx.h">
       <Filter>Source</Filter>
     </ClInclude>
-    <ClInclude Include="Source\someVideoSettings.h">
+    <ClInclude Include="Source\someVideoParms.h">
       <Filter>Source</Filter>
     </ClInclude>
   </ItemGroup>

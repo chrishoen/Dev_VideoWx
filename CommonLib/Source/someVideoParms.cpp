@@ -6,8 +6,8 @@
 
 #include "risCmdLineFile.h"
 
-#define  _SOMEVIDEOSETTINGS_CPP_
-#include "someVideoSettings.h"
+#define  _SOMEVIDEOPARMS_CPP_
+#include "someVideoParms.h"
 
 //******************************************************************************
 //******************************************************************************
@@ -24,15 +24,15 @@ namespace Some
 //******************************************************************************
 // Constructor.
 
-VideoSettings::VideoSettings()
+VideoParms::VideoParms()
 {
    reset();
 }
 
-void VideoSettings::reset()
+void VideoParms::reset()
 {
    BaseClass::reset();
-   strcpy(BaseClass::mDefaultFileName, "Video_Settings.txt");
+   strcpy(BaseClass::mDefaultFileName, "Video_Parms.txt");
 
    mWindowW = 0;
    mWindowH = 0;
@@ -47,10 +47,10 @@ void VideoSettings::reset()
 //******************************************************************************
 // Show.
 
-void VideoSettings::show()
+void VideoParms::show()
 {
    printf("\n");
-   printf("VideoSettings************************************************ %s\n", mTargetSection);
+   printf("VideoParms************************************************ %s\n", mTargetSection);
 
    printf("\n");
    printf("WindowWH             %12d %12d\n", mWindowW,mWindowH);
@@ -67,7 +67,7 @@ void VideoSettings::show()
 // member variable.  Only process commands for the target section.This is
 // called by the associated command file object for each command in the file.
 
-void VideoSettings::execute(Ris::CmdLineCmd* aCmd)
+void VideoParms::execute(Ris::CmdLineCmd* aCmd)
 {
    if (!isTargetSection(aCmd)) return;
 
@@ -94,7 +94,7 @@ void VideoSettings::execute(Ris::CmdLineCmd* aCmd)
 // Calculate expanded member variables. This is called after the entire
 // section of the command file has been processed.
 
-void VideoSettings::expand()
+void VideoParms::expand()
 {
 }
 
