@@ -147,7 +147,7 @@ void VideoThread::doVideoDraw1(SDL_Event* aEvent)
 {
    int tRet = 0;
    int aCode = aEvent->user.code;
-   Prn::print(Prn::ThreadRun1, "VideoThread::doVideoDraw1 %d",aCode);
+   Prn::print(Prn::ThreadRun2, "VideoThread::doVideoDraw1 %d",aCode);
 
    try
    {

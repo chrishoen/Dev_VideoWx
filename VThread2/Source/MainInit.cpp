@@ -3,6 +3,8 @@
 
 #include "risThreadsProcess.h"
 
+#include "someVideoSettings.h"
+
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
@@ -22,7 +24,7 @@ void main_initialize(int argc,char** argv)
    Prn::setFilter(Prn::ThreadInit1,     true);
    Prn::setFilter(Prn::ThreadInit1,     true);
    Prn::setFilter(Prn::ThreadRun1,      true);
-   Prn::setFilter(Prn::ThreadRun2,      true);
+   Prn::setFilter(Prn::ThreadRun2,      false);
    Prn::setFilter(Prn::ThreadRun3,      false);
    Prn::setFilter(Prn::ThreadRun4,      false);
 
@@ -32,6 +34,10 @@ void main_initialize(int argc,char** argv)
    Prn::setFilter(Prn::View12,          true,  1);
    Prn::setFilter(Prn::View21,          false, 2);
    Prn::setFilter(Prn::View21,          false, 2);
+
+   // Read parameters files.
+   Some::gVideoSettings.reset();
+   Some::gVideoSettings.readSection("default");
 
    // Done.
    Prn::print(0,"VThread Program**********************************************BEGIN");
