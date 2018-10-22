@@ -9,6 +9,7 @@
 #include "SDL.h"
 
 #include "someVideoThread.h"
+#include "someTimerThread.h"
 
 //******************************************************************************
 //******************************************************************************
@@ -31,6 +32,9 @@ int main(int argc,char** argv)
    Some::gVideoThread = new Some::VideoThread;
    Some::gVideoThread->launchThread();
 
+   Some::gTimerThread = new Some::TimerThread;
+   Some::gTimerThread->launchThread();
+
    //***************************************************************************
    //***************************************************************************
    //***************************************************************************
@@ -45,6 +49,9 @@ int main(int argc,char** argv)
    //***************************************************************************
    // Shutdown program threads.
 
+   Some::gTimerThread->shutdownThread();
+   delete Some::gTimerThread;
+
    Some::gVideoThread->shutdownThread();
    delete Some::gVideoThread;
 
@@ -55,8 +62,8 @@ int main(int argc,char** argv)
 
    main_finalize();
 
-   //printf("press enter\n");
-   //getchar();
+   printf("press enter\n");
+   getchar();
 
    return 0;
 }

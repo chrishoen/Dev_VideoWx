@@ -9,15 +9,16 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Video1", "Video1\Video1.vcx
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Video2", "Video2\Video2.vcxproj", "{7D1EB0EC-A56D-422E-B0C7-0B0C0659C108}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VThread1", "VThread1\VThread1.vcxproj", "{2551E59A-8DD3-405D-AFEF-011EFC4E1CC9}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VThread2", "VThread2\VThread2.vcxproj", "{2874D55F-5E18-4E84-A118-44435C412F0B}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CommonLib", "CommonLib\CommonLib.vcxproj", "{C7B9EABB-F528-4E1D-AD69-B884EAEA1876}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Files", "Files", "{1EDDBEE5-4219-4923-AE1E-4455612D09D2}"
 	ProjectSection(SolutionItems) = preProject
 		Files\Video_Settings.txt = Files\Video_Settings.txt
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VThread1", "VThread1\VThread1.vcxproj", "{2874D55F-5E18-4E84-A118-44435C412F0B}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C7B9EABB-F528-4E1D-AD69-B884EAEA1876} = {C7B9EABB-F528-4E1D-AD69-B884EAEA1876}
 	EndProjectSection
 EndProject
 Global
@@ -52,22 +53,6 @@ Global
 		{7D1EB0EC-A56D-422E-B0C7-0B0C0659C108}.Release|x64.Build.0 = Release|x64
 		{7D1EB0EC-A56D-422E-B0C7-0B0C0659C108}.Release|x86.ActiveCfg = Release|Win32
 		{7D1EB0EC-A56D-422E-B0C7-0B0C0659C108}.Release|x86.Build.0 = Release|Win32
-		{2551E59A-8DD3-405D-AFEF-011EFC4E1CC9}.Debug|x64.ActiveCfg = Debug|x64
-		{2551E59A-8DD3-405D-AFEF-011EFC4E1CC9}.Debug|x64.Build.0 = Debug|x64
-		{2551E59A-8DD3-405D-AFEF-011EFC4E1CC9}.Debug|x86.ActiveCfg = Debug|Win32
-		{2551E59A-8DD3-405D-AFEF-011EFC4E1CC9}.Debug|x86.Build.0 = Debug|Win32
-		{2551E59A-8DD3-405D-AFEF-011EFC4E1CC9}.Release|x64.ActiveCfg = Release|x64
-		{2551E59A-8DD3-405D-AFEF-011EFC4E1CC9}.Release|x64.Build.0 = Release|x64
-		{2551E59A-8DD3-405D-AFEF-011EFC4E1CC9}.Release|x86.ActiveCfg = Release|Win32
-		{2551E59A-8DD3-405D-AFEF-011EFC4E1CC9}.Release|x86.Build.0 = Release|Win32
-		{2874D55F-5E18-4E84-A118-44435C412F0B}.Debug|x64.ActiveCfg = Debug|x64
-		{2874D55F-5E18-4E84-A118-44435C412F0B}.Debug|x64.Build.0 = Debug|x64
-		{2874D55F-5E18-4E84-A118-44435C412F0B}.Debug|x86.ActiveCfg = Debug|Win32
-		{2874D55F-5E18-4E84-A118-44435C412F0B}.Debug|x86.Build.0 = Debug|Win32
-		{2874D55F-5E18-4E84-A118-44435C412F0B}.Release|x64.ActiveCfg = Release|x64
-		{2874D55F-5E18-4E84-A118-44435C412F0B}.Release|x64.Build.0 = Release|x64
-		{2874D55F-5E18-4E84-A118-44435C412F0B}.Release|x86.ActiveCfg = Release|Win32
-		{2874D55F-5E18-4E84-A118-44435C412F0B}.Release|x86.Build.0 = Release|Win32
 		{C7B9EABB-F528-4E1D-AD69-B884EAEA1876}.Debug|x64.ActiveCfg = Debug|x64
 		{C7B9EABB-F528-4E1D-AD69-B884EAEA1876}.Debug|x64.Build.0 = Debug|x64
 		{C7B9EABB-F528-4E1D-AD69-B884EAEA1876}.Debug|x86.ActiveCfg = Debug|Win32
@@ -76,6 +61,14 @@ Global
 		{C7B9EABB-F528-4E1D-AD69-B884EAEA1876}.Release|x64.Build.0 = Release|x64
 		{C7B9EABB-F528-4E1D-AD69-B884EAEA1876}.Release|x86.ActiveCfg = Release|Win32
 		{C7B9EABB-F528-4E1D-AD69-B884EAEA1876}.Release|x86.Build.0 = Release|Win32
+		{2874D55F-5E18-4E84-A118-44435C412F0B}.Debug|x64.ActiveCfg = Debug|x64
+		{2874D55F-5E18-4E84-A118-44435C412F0B}.Debug|x64.Build.0 = Debug|x64
+		{2874D55F-5E18-4E84-A118-44435C412F0B}.Debug|x86.ActiveCfg = Debug|Win32
+		{2874D55F-5E18-4E84-A118-44435C412F0B}.Debug|x86.Build.0 = Debug|Win32
+		{2874D55F-5E18-4E84-A118-44435C412F0B}.Release|x64.ActiveCfg = Release|x64
+		{2874D55F-5E18-4E84-A118-44435C412F0B}.Release|x64.Build.0 = Release|x64
+		{2874D55F-5E18-4E84-A118-44435C412F0B}.Release|x86.ActiveCfg = Release|Win32
+		{2874D55F-5E18-4E84-A118-44435C412F0B}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

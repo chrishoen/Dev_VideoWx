@@ -2,6 +2,7 @@
 #include "stdafx.h"
 
 #include "someVideoThread.h"
+#include "someTimerThread.h"
 
 #include "risCmdLineConsole.h"
 #include "CmdLineExec.h"
@@ -30,6 +31,9 @@ void CmdLineExec::reset()
 
 void CmdLineExec::execute(Ris::CmdLineCmd* aCmd)
 {
+   if (aCmd->isCmd("D"))         executeDraw(aCmd);
+
+   if (aCmd->isCmd("TP"))        Some::gTimerThread->mTPFlag = aCmd->argBool(1);
    if (aCmd->isCmd("GO1"))       executeGo1(aCmd);
    if (aCmd->isCmd("GO2"))       executeGo2(aCmd);
    if (aCmd->isCmd("GO3"))       executeGo3(aCmd);
@@ -41,6 +45,17 @@ void CmdLineExec::execute(Ris::CmdLineCmd* aCmd)
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
+
+//******************************************************************************
+//******************************************************************************
+//******************************************************************************
+
+void CmdLineExec::executeDraw(Ris::CmdLineCmd* aCmd)
+{
+   aCmd->setArgDefault(1, 0);
+
+   Some::gVideoThread->postDraw1(aCmd->argInt(1));
+}
 
 //******************************************************************************
 //******************************************************************************

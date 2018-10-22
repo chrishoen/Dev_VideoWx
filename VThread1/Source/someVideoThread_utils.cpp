@@ -52,6 +52,11 @@ void VideoThread::showDisplayInfo(int tDisplayIndex)
    Prn::print(Prn::ThreadRun1, "Display refresh rate   %5d", tDisplayMode.refresh_rate);
 }
 
+void VideoThread::showError()
+{
+   Prn::print(Prn::ThreadRun1, "ERROR %s", SDL_GetError());
+}
+
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************

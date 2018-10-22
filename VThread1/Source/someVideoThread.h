@@ -1,7 +1,7 @@
 #pragma once
 
 /*==============================================================================
-Some serial thread class.
+Some video thread class.
 ==============================================================================*/
 
 //******************************************************************************
@@ -21,32 +21,30 @@ namespace Some
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
-// This is a serial message thread that transmits and receives byte content
-// messages via a serial message child thread which manages a serial message
-// port.
-//
-// It provides the capability to send messages via the child thread serial
-// port and it provides handlers for messages received via the child thread
-// serial port. When the child thread receives a message it invokes a qcall
-// that was registered by this thread to defer execution of a message handler
-//  that is a member of this thread.
+// This is an example SDL2 video thread that creates a window and renderer and
+// draws a filled rectangle.
 //   
-// It inherits from BaseQCallThread to obtain a call queue based thread
-// functionality.
+// It creates a window and a renderer and enters a loop that waits for posted
+// events. If it receives a draw event then it draws a filled rectangle. If it
+// receives a quit event then it exits the loop and the thread terminates.
+//
+// It inherits from BaseThread to obtain a basic thread functionality.
 
-class  VideoThread : public Ris::Threads::BaseThreadWithTermSem
+class VideoThread : public Ris::Threads::BaseThread
 {
 public:
 
-   typedef Ris::Threads::BaseThreadWithTermSem BaseClass;
+   typedef Ris::Threads::BaseThread BaseClass;
 
    //***************************************************************************
    //***************************************************************************
    //***************************************************************************
    // Members.
 
+   // If true then the thread SDL window was created successfully.
    bool mValidFlag;
 
+   // SDL window resources.
    SDL_Window*      mWindow;
    SDL_Surface*     mSurface;
    SDL_Surface*     mImage;
@@ -55,11 +53,16 @@ public:
    SDL_Texture*     mShape;
    SDL_RendererInfo mRenderInfo;
    SDL_Rect         mRectA;
+   SDL_Rect         mRectB;
 
+   // Widths and heights.
    int mWindowW;
    int mWindowH;
    int mRectW;
    int mRectH;
+
+   // Thread window specific event types.
+   unsigned int mDrawEventType;
 
    //***************************************************************************
    //***************************************************************************
@@ -77,35 +80,55 @@ public:
    // Methods. Thread base class overloads.
 
    // Thread init function. This is called by the base class immediately 
-   // after the thread starts running. It starts the child thread.
+   // after the thread starts running. It initializes SDL and creates the
+   // thread SDL window and associated resources.
    void threadInitFunction() override;
 
    // Thread run function. This is called by the base class immediately 
-   // after the thread init function. It performs the thread processing.
+   // after the thread init function. It runs a loop that waits on SDL
+   // events and processes posted events. The loop exits when it receives
+   // a quit event.
    void threadRunFunction() override;
 
    // Thread exit function. This is called by the base class immediately
-   // before the thread is terminated. It shuts down the child thread.
+   // before the thread is terminated. It releases SDL resources and closes
+   // the thread SDL window.
    void threadExitFunction() override;
 
-   //***************************************************************************
-   //***************************************************************************
-   //***************************************************************************
-   // Methods.
-
-   // Draw some video.
-   void doVideoDraw1();
-   void doVideoDraw2();
+   // Thread shutdown function. This posts an SDL quit event that causes
+   // the thread event loop to exit.
+   void shutdownThread() override;
 
    //***************************************************************************
    //***************************************************************************
    //***************************************************************************
    // Methods.
 
+   // Start and finish the video subsystem.
+   void doVideoStart();
+   void doVideoFinish();
+
+   //***************************************************************************
+   //***************************************************************************
+   //***************************************************************************
+   // Methods. 
+
+   // Post an event to draw something.
+   void postDraw1(int aCode);
+
+   // Draw something. This is requested by the posted event.
+   void doVideoDraw1(SDL_Event* aEvent);
+
+   //***************************************************************************
+   //***************************************************************************
+   //***************************************************************************
+   // Methods.
+
+   // Utilities.
    void showWindowFlags(SDL_Window* aWindow);
    void showRenderInfo(const char* aLabel, SDL_RendererInfo* aInfo);
    void showDisplayInfo(int tDisplayIndex);
-
+   void showError();
 };
 
 //******************************************************************************
