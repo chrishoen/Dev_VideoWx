@@ -1,9 +1,12 @@
 
 #include "stdafx.h"
 
+#include "risAlphaDir.h"
 #include "someVideoSettings.h"
 
 #include "CmdLineExec.h"
+
+using namespace Some;
 
 //******************************************************************************
 //******************************************************************************
@@ -40,16 +43,10 @@ void CmdLineExec::execute(Ris::CmdLineCmd* aCmd)
 
 void CmdLineExec::executeGo1(Ris::CmdLineCmd* aCmd)
 {
-   // Set defaults if no arguments were entered.
-   aCmd->setArgDefault(1,10);
-   aCmd->setArgDefault(2,11.1);
+   char tBuffer[100];
+   Prn::print(0,"ImageFilename %s",Ris::getAlphaFilePath_Image(tBuffer,gVideoSettings.mImageFilename));
 
-   // Set variables from arguments.
-   int    tInt    = aCmd->argInt(1);
-   double tDouble = aCmd->argDouble(2);
 
-   // Show variables.
-   Prn::print(0,"Show2 %d %10.6f",tInt,tDouble);
 }
 
 //******************************************************************************
@@ -58,11 +55,23 @@ void CmdLineExec::executeGo1(Ris::CmdLineCmd* aCmd)
 
 void CmdLineExec::executeGo2(Ris::CmdLineCmd* aCmd)
 {
-   // Set defaults if no arguments were entered.
-   aCmd->setArgDefault(1,"something");
+   int blockSize = 75;
+   int imageSize = blockSize * 8;
+   cv::Mat chessBoard(imageSize, imageSize, CV_8UC3, cv::Scalar::all(0));
+   unsigned char color = 0;
 
-   // Show arguments.
-   Prn::print(0,"Go2 %s %10.6f",aCmd->argString(1));
+   for (int i = 0; i < imageSize; i = i + blockSize) {
+      color = ~color;
+      for (int j = 0; j < imageSize; j = j + blockSize) {
+         cv::Mat ROI = chessBoard(cv::Rect(i, j, blockSize, blockSize));
+         ROI.setTo(cv::Scalar::all(color));
+         color = ~color;
+      }
+   }
+
+   char tBuffer[200];
+   cv::imwrite(Ris::getAlphaFilePath_Image(tBuffer, gVideoSettings.mImageFilename), chessBoard );
+
 }
 
 //******************************************************************************
