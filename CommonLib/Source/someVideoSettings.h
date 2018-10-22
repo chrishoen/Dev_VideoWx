@@ -67,6 +67,10 @@ public:
    //***************************************************************************
    // Members.
 
+   // Window width and height.
+   int mWindowW;
+   int mWindowH;
+
    // Timer thread.
    int  mTimerThreadPeriod;
 

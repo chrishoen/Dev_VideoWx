@@ -4,6 +4,9 @@
 
 SectionBegin Default
 
+   // Window width and height.
+   WindowWH               1920   1080
+
    // Timer thread.
    TimerThreadPeriod      100
 
