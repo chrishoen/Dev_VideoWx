@@ -50,10 +50,6 @@ VideoThread::VideoThread()
    mDrawEventType = 0;
 }
 
-//******************************************************************************
-//******************************************************************************
-//******************************************************************************
-
 VideoThread::~VideoThread()
 {
 }
@@ -71,7 +67,8 @@ void VideoThread::show()
 //******************************************************************************
 //******************************************************************************
 // Thread init function. This is called by the base class immediately 
-// after the thread starts running. It starts the child thread.
+// after the thread starts running. It initializes SDL and creates the
+// thread SDL window and associated resources.
 
 void VideoThread::threadInitFunction()
 {
@@ -99,40 +96,67 @@ void VideoThread::threadInitFunction()
 //******************************************************************************
 //******************************************************************************
 // Thread run function. This is called by the base class immediately 
-// after the thread init function. It performs the thread processing.
+// after the thread init function. It runs a loop that waits on SDL
+// events and processes posted events. The loop exits when it receives
+// a quit event.
 
 void VideoThread::threadRunFunction()
 {
-   Prn::print(Prn::ThreadRun1, "VideoThread::threadRunFunction %s", my_string_from_bool(mValidFlag));
+   Prn::print(Prn::ThreadRun1, "VideoThread::threadRunFunction BEGIN %s", my_string_from_bool(mValidFlag));
    if (!mValidFlag) return;
 
-   // Draw some video.
+   // Loop to wait for posted events and process them.
    while (true)
    {
+      // Wait for an event.
       SDL_Event tEvent;
       SDL_WaitEvent(&tEvent);
       Prn::print(Prn::ThreadRun3, "event %d", tEvent.type);
+
+      // Exit the loop if a quit event was posted.
       if (tEvent.type == SDL_QUIT) break;
       if (tEvent.type == SDL_MOUSEBUTTONDOWN) break;
+
+      // Draw something if a draw event was posted.
       if (tEvent.type == mDrawEventType)
       {
          doVideoDraw1(&tEvent);
       }
    }
 
+   Prn::print(Prn::ThreadRun1, "VideoThread::threadRunFunction END");
 }
 
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
 // Thread exit function. This is called by the base class immediately
-// before the thread is terminated. It shuts down the child thread.
+// before the thread is terminated. It releases SDL resources and closes
+// the thread SDL window.
 
 void VideoThread::threadExitFunction()
 {
    Prn::print(Prn::ThreadInit1, "VideoThread::threadExitFunction");
 
    doVideoFinish();
+}
+
+//******************************************************************************
+//******************************************************************************
+//******************************************************************************
+// Thread shutdown function. This posts an SDL quit event that causes
+// the thread event loop to exit.
+
+void VideoThread::shutdownThread()
+{
+   // Post a quit event.
+   SDL_Event tEvent;
+   SDL_memset(&tEvent, 0, sizeof(tEvent));
+   tEvent.type = SDL_QUIT;
+   SDL_PushEvent(&tEvent);
+
+   // Wait for the thread to terminate.
+   BaseClass::waitForThreadTerminate();
 }
 
 //******************************************************************************
@@ -151,7 +175,7 @@ void VideoThread::postDraw1(int aCode)
 
    // Post the event.
    SDL_Event tEvent;
-   SDL_memset(&tEvent, 0, sizeof(tEvent)); /* or SDL_zero(tEvent) */
+   SDL_memset(&tEvent, 0, sizeof(tEvent));
    tEvent.type = mDrawEventType;
    tEvent.user.code = aCode;
    tEvent.user.data1 = 0;

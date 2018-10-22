@@ -55,8 +55,8 @@ int main(int argc,char** argv)
 
    main_finalize();
 
-   //printf("press enter\n");
-   //getchar();
+   printf("press enter\n");
+   getchar();
 
    return 0;
 }
