@@ -210,7 +210,7 @@ int main(int argc,char** argv)
 // tWindowFlags |= SDL_WINDOW_FULLSCREEN;
 // tWindowFlags |= SDL_WINDOW_OPENGL;
 
-   tWindow = SDL_CreateWindow("TVideo",
+   tWindow = SDL_CreateWindow("Video2",
 //    SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
       SDL_WINDOWPOS_CENTERED_DISPLAY(1), SDL_WINDOWPOS_CENTERED_DISPLAY(1),
       tWindowW, tWindowH,tWindowFlags);
@@ -228,7 +228,8 @@ int main(int argc,char** argv)
    tSurface = SDL_GetWindowSurface(tWindow);
    if (tSurface == 0) my_error("SDL_GetWindowSurface");
 
-   tImage = SDL_LoadBMP("C:/Alpha/Image/image1.bmp");
+// tImage = SDL_LoadBMP("C:/Alpha/Image/image1.bmp");
+   tImage = IMG_Load("C:/Alpha/Image/image1.png");
    if (tImage == 0) my_error("SDL_LoadBMP");
 
    tRet = SDL_BlitSurface(tImage, NULL, tSurface, NULL);
