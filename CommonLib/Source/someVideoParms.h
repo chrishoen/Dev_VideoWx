@@ -89,7 +89,8 @@ public:
    int   mTargetHeight;
 
    // Target color.
-   int   mTargetColor[3];
+   int   mForeColor[3];
+   int   mBackColor[3];
 
    // Target test variables.
    int   mWidthX;

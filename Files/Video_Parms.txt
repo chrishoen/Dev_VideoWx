@@ -23,14 +23,15 @@ SectionBegin Default
    //*****************************************************************
    
    // Size of the target region within the window image.
-   TargetSize             1920   1080
+   TargetWH               1920   1080
 
    // Target colors
-   TargetColor            255     0      0
+   ForeColor              255     0      0
+   BackColor              255     255    255
 
    // Target test variables.
-   WidthX                 16
-   WidthY                 16
+   WidthX                 60
+   WidthY                 60
    TargetBorder           true
    
 SectionEnd

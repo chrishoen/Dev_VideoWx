@@ -50,8 +50,8 @@ void ImagePainter::initializeTargetBitMap(
    cv::Mat& aTarget)
 {
    // Set color from parms.
-   mForeColor = cv::Scalar(mP->mTargetColor[0], mP->mTargetColor[1], mP->mTargetColor[2]);
-   mBackColor = cv::Scalar(0,0,0);
+   mForeColor = cv::Vec3b(mP->mForeColor[0], mP->mForeColor[1], mP->mForeColor[2]);
+   mBackColor = cv::Vec3b(mP->mBackColor[0], mP->mBackColor[1], mP->mBackColor[2]);
 
    // Create new image.
    aTarget = cv::Mat(mP->mTargetHeight, mP->mTargetWidth, CV_8UC3, mBackColor);
@@ -133,7 +133,7 @@ void ImagePainter::drawCheckerBoard(
 
          if (tI)
          {
-            aTarget.at<cv::Scalar>(iY,jX) = mForeColor;
+            aTarget.at<cv::Vec3b>(iY,jX) = mForeColor;
          }
       }
    }
@@ -158,18 +158,18 @@ void ImagePainter::drawReticle(
 
    for (int iY = 0; iY < aTarget.rows; iY++)
    {
-      aTarget.at<cv::Scalar>(iY, aWidthY) = mForeColor;
-      aTarget.at<cv::Scalar>(iY, aTarget.cols - aWidthY) = mForeColor;
+      aTarget.at<cv::Vec3b>(iY, aWidthY) = mForeColor;
+      aTarget.at<cv::Vec3b>(iY, aTarget.cols - aWidthY) = mForeColor;
 
-      aTarget.at<cv::Scalar>(iY, 288) = mForeColor;
+      aTarget.at<cv::Vec3b>(iY, 288) = mForeColor;
    }
 
    for (int iX = 0; iX < aTarget.cols; iX++)
    {
-      aTarget.at<cv::Scalar>(aWidthX, iX) = mForeColor;
-      aTarget.at<cv::Scalar>(aTarget.rows - aWidthX, iX) = mForeColor;
+      aTarget.at<cv::Vec3b>(aWidthX, iX) = mForeColor;
+      aTarget.at<cv::Vec3b>(aTarget.rows - aWidthX, iX) = mForeColor;
       
-      aTarget.at<cv::Scalar>(240, iX) = mForeColor;
+      aTarget.at<cv::Vec3b>(240, iX) = mForeColor;
    }
 }
 
@@ -185,7 +185,7 @@ void ImagePainter::drawAllZeroes(
    {
       for (int jX = 0; jX < aTarget.cols; jX++)
       {
-         aTarget.at<cv::Scalar>(iY, jX) = mBackColor;
+         aTarget.at<cv::Vec3b>(iY, jX) = mBackColor;
       }
    }
 }
@@ -202,9 +202,14 @@ void ImagePainter::drawAllOnes(
    {
       for (int jX = 0; jX < aTarget.cols; jX++)
       {
-         aTarget.at<cv::Scalar>(iY, jX) = mForeColor;
+         aTarget.at<cv::Vec3b>(iY, jX) = cv::Vec3b(mForeColor);
       }
    }
+   return;
+
+   aTarget.setTo(mForeColor);
+   return;
+
 }
 
 //******************************************************************************
@@ -220,14 +225,14 @@ void ImagePainter::drawBorder(
 
    for (int iY = 0; iY < aTarget.rows; iY++)
    {
-      aTarget.at<cv::Scalar>(iY,              0) = mForeColor;
-      aTarget.at<cv::Scalar>(iY, aTarget.cols-1) = mForeColor;
+      aTarget.at<cv::Vec3b>(iY,              0) = mForeColor;
+      aTarget.at<cv::Vec3b>(iY, aTarget.cols-1) = mForeColor;
    }
 
    for (int iX = 0;  iX < aTarget.cols; iX++)
    {
-      aTarget.at<cv::Scalar>(0,              iX) = mForeColor;
-      aTarget.at<cv::Scalar>(aTarget.rows-1, iX) = mForeColor;
+      aTarget.at<cv::Vec3b>(0,              iX) = mForeColor;
+      aTarget.at<cv::Vec3b>(aTarget.rows-1, iX) = mForeColor;
    }
 }
 

@@ -53,6 +53,8 @@ void CmdLineExec::executeGo1(Ris::CmdLineCmd* aCmd)
    cv::Mat tImage;
    tPainter.doPaintTargetWithReference(aCmd->argInt(1),tImage);
 
+   Prn::print(0, "ImageRC %d %d", tImage.rows, tImage.cols);
+
    char tBuffer[100];
    cv::imwrite(Ris::getAlphaFilePath_Image(tBuffer, gVideoParms.mImageFilename),tImage);
 }

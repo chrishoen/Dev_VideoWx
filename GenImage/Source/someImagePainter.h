@@ -48,8 +48,8 @@ public:
    VideoParms* mP;
 
    // Color.
-   cv::Scalar mForeColor;
-   cv::Scalar mBackColor;
+   cv::Vec3b mForeColor;
+   cv::Vec3b mBackColor;
 
    //***************************************************************************
    //***************************************************************************
