@@ -9,7 +9,17 @@
 
 void my_error(const char* aString)
 {
-   printf("MY_ERROR %s ERROR %s\n",aString,SDL_GetError());
+   printf("MY_ERROR %s ERROR %s\n", aString, SDL_GetError());
+   printf("press enter\n");
+   getchar();
+   exit(1);
+}
+
+void my_img_error(const char* aString)
+{
+   printf("MY_IMG_ERROR %s ERROR %s\n", aString, IMG_GetError());
+   printf("press enter\n");
+   getchar();
    exit(1);
 }
 
@@ -158,8 +168,8 @@ int main(int argc,char** argv)
 
    printf("\n");
    printf("IMG_Init*******************************************************\n");
-// tRet = IMG_Init(IMG_INIT_JPG | IMG_INIT_PNG);
-// if (tRet) my_error("IMG_Init");
+   tRet = IMG_Init(IMG_INIT_PNG);
+   if (tRet) my_img_error("IMG_Init");
 
    //***************************************************************************
    //***************************************************************************
