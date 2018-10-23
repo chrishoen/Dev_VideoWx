@@ -162,7 +162,7 @@
       <SubSystem>Console</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
-      <AdditionalDependencies>C:\Alpha\Lib\RisLib\x64\Release\RisLib.lib;C:\MyTools\SDL2\lib\SDL2.lib;C:\MyTools\SDL2\lib\SDL2main.lib;winmm.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>C:\Alpha\Lib\RisLib\x64\Release\RisLib.lib;C:\MyTools\SDL2\lib\SDL2.lib;C:\MyTools\SDL2\lib\SDL2main.lib;C:\MyTools\SDL2\lib\SDL2_image.lib;winmm.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
