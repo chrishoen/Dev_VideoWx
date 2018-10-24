@@ -10,8 +10,8 @@ SectionBegin Default
    // Size of the image.
    ImageWidthHeight       1920    1080
 
-   // Image colors.
-   ForeColor              255     0      0
+   // Image colors. RGB.
+   ForeColor              0       0      255
    BackColor              255     255    255
 
    // Side variables.

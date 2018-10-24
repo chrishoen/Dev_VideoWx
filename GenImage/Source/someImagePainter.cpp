@@ -50,8 +50,8 @@ void ImagePainter::initializeImage(
    cv::Mat& aImage)
 {
    // Set color from parms.
-   mForeColor = cv::Vec3b(mP->mForeColor[0], mP->mForeColor[1], mP->mForeColor[2]);
-   mBackColor = cv::Vec3b(mP->mBackColor[0], mP->mBackColor[1], mP->mBackColor[2]);
+   mForeColor = cv::Vec3b(mP->mForeColor[2], mP->mForeColor[1], mP->mForeColor[0]);
+   mBackColor = cv::Vec3b(mP->mBackColor[2], mP->mBackColor[1], mP->mBackColor[0]);
 
    // Create new image.
    aImage = cv::Mat(mP->mImageHeight, mP->mImageWidth, CV_8UC3, mBackColor);
