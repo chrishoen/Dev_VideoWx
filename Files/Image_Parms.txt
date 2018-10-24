@@ -5,14 +5,20 @@
 SectionBegin Default
 
    // Image file name.
-   ImageFilename          Image1920.png
+   ImageFilename          Image3840_1.png
+   ImageFilename          Image1920_0.png
+   ImageFilename          Image1920_1.png
    
    // Size of the image.
+   ImageWidthHeight       3840    2160
    ImageWidthHeight       1920    1080
 
    // Image colors. RGB.
-   ForeColor              0       0      255
+   ForeColor              0       0      0
    BackColor              255     255    255
+
+   ForeColor              255     255    255
+   backColor              0       0      0
 
    // Side variables.
    SideX                  80
