@@ -2,7 +2,7 @@
 #include "stdafx.h"
 
 #include "risAlphaDir.h"
-#include "someVideoParms.h"
+#include "someImageParms.h"
 #include "someImagePainter.h"
 
 #include "CmdLineExec.h"
@@ -46,17 +46,17 @@ void CmdLineExec::executeGo1(Ris::CmdLineCmd* aCmd)
 {
    aCmd->setArgDefault(1, 1);
 
-   Some::gVideoParms.reset();
-   Some::gVideoParms.readSection("default");
+   Some::gImageParms.reset();
+   Some::gImageParms.readSection("default");
 
-   Some::ImagePainter tPainter(&Some::gVideoParms);
+   Some::ImagePainter tPainter(&Some::gImageParms);
    cv::Mat tImage;
-   tPainter.doPaintTargetWithReference(aCmd->argInt(1),tImage);
+   tPainter.doPaintImage(aCmd->argInt(1),tImage);
 
    Prn::print(0, "ImageRC %d %d", tImage.rows, tImage.cols);
 
    char tBuffer[100];
-   cv::imwrite(Ris::getAlphaFilePath_Image(tBuffer, gVideoParms.mImageFilename),tImage);
+   cv::imwrite(Ris::getAlphaFilePath_Image(tBuffer, gImageParms.mImageFilename),tImage);
 }
 
 //******************************************************************************
@@ -66,7 +66,7 @@ void CmdLineExec::executeGo1(Ris::CmdLineCmd* aCmd)
 void CmdLineExec::executeGo2(Ris::CmdLineCmd* aCmd)
 {
    char tBuffer[100];
-   Prn::print(0,"ImageFilename %s",Ris::getAlphaFilePath_Image(tBuffer,gVideoParms.mImageFilename));
+   Prn::print(0,"ImageFilename %s",Ris::getAlphaFilePath_Image(tBuffer,gImageParms.mImageFilename));
 }
 
 //******************************************************************************
@@ -90,7 +90,7 @@ void CmdLineExec::executeGo3(Ris::CmdLineCmd* aCmd)
    }
 
    char tBuffer[200];
-   cv::imwrite(Ris::getAlphaFilePath_Image(tBuffer, gVideoParms.mImageFilename), chessBoard );
+   cv::imwrite(Ris::getAlphaFilePath_Image(tBuffer, gImageParms.mImageFilename), chessBoard );
 }
 
 //******************************************************************************
@@ -115,8 +115,8 @@ void CmdLineExec::executeGo5(Ris::CmdLineCmd* aCmd)
 
 void CmdLineExec::executeParms(Ris::CmdLineCmd* aCmd)
 {
-   Some::gVideoParms.reset();
-   Some::gVideoParms.readSection("default");
-   Some::gVideoParms.show();
+   Some::gImageParms.reset();
+   Some::gImageParms.readSection("default");
+   Some::gImageParms.show();
 }
 

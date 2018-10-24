@@ -1,0 +1,25 @@
+//********************************************************************
+//********************************************************************
+//********************************************************************
+
+SectionBegin Default
+
+   // Image file name.
+   ImageFilename          Image1920.png
+   
+   // Size of the image.
+   ImageWidthHeight       1920    1080
+
+   // Image colors.
+   ForeColor              255     0      0
+   BackColor              255     255    255
+
+   // Side variables.
+   SideX                  80
+   SideY                  60
+
+   // If true then draw a border.
+   ImageBorder            true
+   
+SectionEnd
+

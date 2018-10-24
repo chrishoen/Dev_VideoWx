@@ -13,12 +13,18 @@
     <ClCompile Include="Source\someVideoParms.cpp">
       <Filter>Source</Filter>
     </ClCompile>
+    <ClCompile Include="Source\someImageParms.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\stdafx.h">
       <Filter>Source</Filter>
     </ClInclude>
     <ClInclude Include="Source\someVideoParms.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\someImageParms.h">
       <Filter>Source</Filter>
     </ClInclude>
   </ItemGroup>

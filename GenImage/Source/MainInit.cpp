@@ -3,7 +3,7 @@
 
 #include "risThreadsProcess.h"
 
-#include "someVideoParms.h"
+#include "someImageParms.h"
 
 //******************************************************************************
 //******************************************************************************
@@ -36,8 +36,8 @@ void main_initialize(int argc,char** argv)
    Prn::setFilter(Prn::View21,          false, 2);
 
    // Read parameters files.
-   Some::gVideoParms.reset();
-   Some::gVideoParms.readSection("default");
+   Some::gImageParms.reset();
+   Some::gImageParms.readSection("default");
 
    // Done.
    Prn::print(0,"GenImage Program**********************************************BEGIN");

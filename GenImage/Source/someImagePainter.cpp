@@ -25,13 +25,13 @@ ImagePainter::ImagePainter()
    reset();
 }
 
-ImagePainter::ImagePainter(VideoParms* aParms)
+ImagePainter::ImagePainter(ImageParms* aParms)
 {
    mP = aParms;
    reset();
 }
 
-void ImagePainter::initialize(VideoParms* aParms)
+void ImagePainter::initialize(ImageParms* aParms)
 {
    mP = aParms;
    reset();
@@ -46,15 +46,15 @@ void ImagePainter::reset()
 //******************************************************************************
 // Initialize the window image matrix to zeroes.
 
-void ImagePainter::initializeTargetBitMap(
-   cv::Mat& aTarget)
+void ImagePainter::initializeImage(
+   cv::Mat& aImage)
 {
    // Set color from parms.
    mForeColor = cv::Vec3b(mP->mForeColor[0], mP->mForeColor[1], mP->mForeColor[2]);
    mBackColor = cv::Vec3b(mP->mBackColor[0], mP->mBackColor[1], mP->mBackColor[2]);
 
    // Create new image.
-   aTarget = cv::Mat(mP->mTargetHeight, mP->mTargetWidth, CV_8UC3, mBackColor);
+   aImage = cv::Mat(mP->mImageHeight, mP->mImageWidth, CV_8UC3, mBackColor);
 }
 
 //******************************************************************************
@@ -67,43 +67,43 @@ void ImagePainter::initializeTargetBitMap(
 // specifies the pattern. This is used to display checkerboards and gray
 // cards.
 
-void ImagePainter::doPaintTargetWithReference(
+void ImagePainter::doPaintImage(
    int      aReferenceCode,   // Input
-   cv::Mat& aTarget)          // Output
+   cv::Mat& aImage)          // Output
 {
    //***************************************************************************
    //***************************************************************************
    //***************************************************************************
    // Paint into window image.
 
-   initializeTargetBitMap(aTarget);
+   initializeImage(aImage);
 
    switch (aReferenceCode)
    {
    case cCheckerBoard:
    {
       // Show checkerboard.
-      drawCheckerBoard(aTarget, mP->mWidthX, mP->mWidthY);
-      drawBorder(aTarget);     
+      drawCheckerBoard(aImage, mP->mSideX, mP->mSideY);
+      drawBorder(aImage);     
    }
    break;
    case cAllZeroes:
    {
       // Show all ones.
-      drawAllZeroes(aTarget);
+      drawAllZeroes(aImage);
    }
    break;
    case cAllOnes:
    {
       // Show all ones.
-      drawAllOnes(aTarget);
+      drawAllOnes(aImage);
    }
    break;
    case cReticle:
    {
       // Show reticle.
-      drawReticle(aTarget, mP->mWidthX, mP->mWidthY);
-      drawBorder(aTarget);
+      drawReticle(aImage, mP->mSideX, mP->mSideY);
+      drawBorder(aImage);
    }
    break;
    }
@@ -115,7 +115,7 @@ void ImagePainter::doPaintTargetWithReference(
 // Draw a checkerboard in the window image matrix target region.
 
 void ImagePainter::drawCheckerBoard(
-   cv::Mat& aTarget,
+   cv::Mat& aImage,
    int      aWidthX,
    int      aWidthY)
 {
@@ -123,9 +123,9 @@ void ImagePainter::drawCheckerBoard(
    int tX = aWidthX*2;
    int tY = aWidthY*2;
 
-   for (int iY = 0; iY < aTarget.rows; iY++)
+   for (int iY = 0; iY < aImage.rows; iY++)
    {
-      for (int jX = 0; jX < aTarget.cols; jX++)
+      for (int jX = 0; jX < aImage.cols; jX++)
       {
          int tN1 = (2 * iY) / tY;
          int tM1 = (2 * jX) / tX;
@@ -133,7 +133,7 @@ void ImagePainter::drawCheckerBoard(
 
          if (tI)
          {
-            aTarget.at<cv::Vec3b>(iY,jX) = mForeColor;
+            aImage.at<cv::Vec3b>(iY,jX) = mForeColor;
          }
       }
    }
@@ -145,7 +145,7 @@ void ImagePainter::drawCheckerBoard(
 // Draw a reticle in the window image matrix target region.
 
 void ImagePainter::drawReticle(
-   cv::Mat& aTarget,
+   cv::Mat& aImage,
    int      aWidthX,
    int      aWidthY)
 {
@@ -154,22 +154,22 @@ void ImagePainter::drawReticle(
    int tY = aWidthY * 2;
 
    // Guard.
-   if (!mP->mTargetBorder) return;
+   if (!mP->mImageBorder) return;
 
-   for (int iY = 0; iY < aTarget.rows; iY++)
+   for (int iY = 0; iY < aImage.rows; iY++)
    {
-      aTarget.at<cv::Vec3b>(iY, aWidthY) = mForeColor;
-      aTarget.at<cv::Vec3b>(iY, aTarget.cols - aWidthY) = mForeColor;
+      aImage.at<cv::Vec3b>(iY, aWidthY) = mForeColor;
+      aImage.at<cv::Vec3b>(iY, aImage.cols - aWidthY) = mForeColor;
 
-      aTarget.at<cv::Vec3b>(iY, 288) = mForeColor;
+      aImage.at<cv::Vec3b>(iY, 288) = mForeColor;
    }
 
-   for (int iX = 0; iX < aTarget.cols; iX++)
+   for (int iX = 0; iX < aImage.cols; iX++)
    {
-      aTarget.at<cv::Vec3b>(aWidthX, iX) = mForeColor;
-      aTarget.at<cv::Vec3b>(aTarget.rows - aWidthX, iX) = mForeColor;
+      aImage.at<cv::Vec3b>(aWidthX, iX) = mForeColor;
+      aImage.at<cv::Vec3b>(aImage.rows - aWidthX, iX) = mForeColor;
       
-      aTarget.at<cv::Vec3b>(240, iX) = mForeColor;
+      aImage.at<cv::Vec3b>(240, iX) = mForeColor;
    }
 }
 
@@ -179,13 +179,13 @@ void ImagePainter::drawReticle(
 // Draw all zeroes in the target window matrix.
 
 void ImagePainter::drawAllZeroes(
-   cv::Mat& aTarget)
+   cv::Mat& aImage)
 {
-   for (int iY = 0; iY < aTarget.rows; iY++)
+   for (int iY = 0; iY < aImage.rows; iY++)
    {
-      for (int jX = 0; jX < aTarget.cols; jX++)
+      for (int jX = 0; jX < aImage.cols; jX++)
       {
-         aTarget.at<cv::Vec3b>(iY, jX) = mBackColor;
+         aImage.at<cv::Vec3b>(iY, jX) = mBackColor;
       }
    }
 }
@@ -196,18 +196,18 @@ void ImagePainter::drawAllZeroes(
 // Draw all ones in the target window matrix.
 
 void ImagePainter::drawAllOnes(
-   cv::Mat& aTarget)
+   cv::Mat& aImage)
 {
-   for (int iY = 0; iY < aTarget.rows; iY++)
+   for (int iY = 0; iY < aImage.rows; iY++)
    {
-      for (int jX = 0; jX < aTarget.cols; jX++)
+      for (int jX = 0; jX < aImage.cols; jX++)
       {
-         aTarget.at<cv::Vec3b>(iY, jX) = cv::Vec3b(mForeColor);
+         aImage.at<cv::Vec3b>(iY, jX) = cv::Vec3b(mForeColor);
       }
    }
    return;
 
-   aTarget.setTo(mForeColor);
+   aImage.setTo(mForeColor);
    return;
 
 }
@@ -218,21 +218,21 @@ void ImagePainter::drawAllOnes(
 // Draw a border around the window image target region.
 
 void ImagePainter::drawBorder(
-   cv::Mat& aTarget)
+   cv::Mat& aImage)
 {
    // Guard.
-   if (!mP->mTargetBorder) return;
+   if (!mP->mImageBorder) return;
 
-   for (int iY = 0; iY < aTarget.rows; iY++)
+   for (int iY = 0; iY < aImage.rows; iY++)
    {
-      aTarget.at<cv::Vec3b>(iY,              0) = mForeColor;
-      aTarget.at<cv::Vec3b>(iY, aTarget.cols-1) = mForeColor;
+      aImage.at<cv::Vec3b>(iY,             0) = mForeColor;
+      aImage.at<cv::Vec3b>(iY, aImage.cols-1) = mForeColor;
    }
 
-   for (int iX = 0;  iX < aTarget.cols; iX++)
+   for (int iX = 0;  iX < aImage.cols; iX++)
    {
-      aTarget.at<cv::Vec3b>(0,              iX) = mForeColor;
-      aTarget.at<cv::Vec3b>(aTarget.rows-1, iX) = mForeColor;
+      aImage.at<cv::Vec3b>(0,             iX) = mForeColor;
+      aImage.at<cv::Vec3b>(aImage.rows-1, iX) = mForeColor;
    }
 }
 
