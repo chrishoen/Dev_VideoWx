@@ -33,8 +33,8 @@ int main(int argc,char** argv)
    // Finalize the program.
 
    main_finalize();
-   printf("press enter\n");
-   getchar();
+// printf("press enter\n");
+// getchar();
    return 0;
 
    //***************************************************************************
