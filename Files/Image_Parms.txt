@@ -8,10 +8,13 @@ SectionBegin Default
    ImageFilename          Image3840_1.png
    ImageFilename          Image1920_0.png
    ImageFilename          Image1920_1.png
+   ImageFilename          Image1440_0.png
+   ImageFilename          Image1440_1.png
    
    // Size of the image.
    ImageWidthHeight       3840    2160
    ImageWidthHeight       1920    1080
+   ImageWidthHeight       1440    2560
 
    // Image colors. RGB.
    ForeColor              0       0      0
@@ -23,6 +26,8 @@ SectionBegin Default
    // Side variables.
    SideX                  80
    SideY                  60
+   SideX                  60
+   SideY                  80
 
    // If true then draw a border.
    ImageBorder            true
